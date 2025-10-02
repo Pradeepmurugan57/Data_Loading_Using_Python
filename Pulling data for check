@@ -1,7 +1,7 @@
 # Import necessary libraries
-import snowflake.connector   # Snowflake Python connector to connect and query Snowflake database
-import pandas as pd          # Pandas library for data manipulation and analysis
-import warnings              # Built-in module to manage and suppress warning messages
+import snowflake.connector                                                           # Snowflake Python connector to connect and query Snowflake database
+import pandas as pd                                                                  # Pandas library for data manipulation and analysis
+import warnings                                                                      # Built-in module to manage and suppress warning messages
 
 # Ignore warning messages so they don't clutter the output
 warnings.filterwarnings('ignore')
@@ -12,12 +12,12 @@ print("Script started")
 # Create a connection to the Snowflake database
 # Provide user credentials and connection details
 conn = snowflake.connector.connect(
-    user="xxxxx",            # Your Snowflake username
-    password="xxxxx",        # Your Snowflake password
-    account="xxxxx",         # Your Snowflake account identifier (org/account info)
-    warehouse="COMPUTE_WH",  # The virtual warehouse used to execute queries
-    database="TEST_BATCH",   # The database to connect to
-    schema="PUBLIC"          # The schema inside the database
+    user="xxxxx",                                                                   # Your Snowflake username
+    password="xxxxx",                                                               # Your Snowflake password
+    account="xxxxx",                                                                # Your Snowflake account identifier (org/account info)
+    warehouse="COMPUTE_WH",                                                         # The virtual warehouse used to execute queries
+    database="TEST_BATCH",                                                          # The database to connect to
+    schema="PUBLIC"                                                                 # The schema inside the database
 )
 
 # Print message if the connection was established successfully
@@ -36,9 +36,9 @@ df_death_stats = pd.read_sql("""
     FROM TEST_BATCH.PUBLIC.COVID_DEATH_STATS 
     LIMIT 50
 """, conn)
-# - SELECT *: Fetches all columns from the table
-# - FROM TEST_BATCH.PUBLIC.COVID_DEATH_STATS: Table path (database.schema.table)
-# - LIMIT 50: Restricts results to only 50 rows for testing or preview
+                                                                                    # - SELECT *: Fetches all columns from the table
+                                                                                    # - FROM TEST_BATCH.PUBLIC.COVID_DEATH_STATS: Table path (database.schema.table)
+                                                                                    # - LIMIT 50: Restricts results to only 50 rows for testing or preview
 
 # Print the shape of the DataFrame (rows x columns) for a quick summary
 print(f"COVID_DEATH_STATS: {df_death_stats.shape[0]} rows, {df_death_stats.shape[1]} columns")
