@@ -1,0 +1,29 @@
+import snowflake.connector
+import pandas as pd
+
+# Convert DATA_PERIOD_START to datetime
+df_death_stats["DATA_PERIOD_START"] = pd.to_datetime(df_death_stats["DATA_PERIOD_START"])
+
+# 1. Total deaths
+total_deaths = df_death_stats["COVID_DEATHS"].sum()
+
+# 2. Average deaths per month
+monthly_avg_deaths = (
+    df_death_stats
+    .groupby(df_death_stats["DATA_PERIOD_START"].dt.to_period("M"))["COVID_DEATHS"]
+    .mean()
+    .reset_index()
+)
+
+# Rename columns
+monthly_avg_deaths.columns = ["MONTH", "AVG_COVID_DEATHS"]
+
+print("Total deaths:", total_deaths)
+print("Monthly averages:")
+print(monthly_avg_deaths.head())
+
+# Create results DataFrame to save back into Snowflake
+df_results_pandas = monthly_avg_deaths.copy()
+df_results_pandas["TOTAL_DEATHS"] = total_deaths
+
+print(df_results_pandas)
